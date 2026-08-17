@@ -5,8 +5,8 @@ Frappe **Gate Management System** — vehicles, yard board, docks, and fleet tra
 ### Deploy with Docker
 
 ```bash
-git clone https://github.com/jagdishparmar-dot/gatems.git
-cd gatems
+git clone https://github.com/jagdishparmar-dot/gatems-frappe.git
+cd gatems-frappe
 docker compose up -d
 ```
 
@@ -38,14 +38,8 @@ docker compose down -v
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app https://github.com/jagdishparmar-dot/gatems.git
+bench get-app https://github.com/jagdishparmar-dot/gatems-frappe.git
 bench --site your.site install-app gatems
-```
-
-For a private clone, use SSH or a GitHub token:
-
-```bash
-bench get-app git@github.com:jagdishparmar-dot/gatems.git
 ```
 
 ### Contributing
