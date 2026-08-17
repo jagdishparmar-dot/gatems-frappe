@@ -1,0 +1,67 @@
+/* Layout pieces Desk utilities do not cover: sidebar width, map height, Leaflet markers. */
+.gatems-fleet {
+	min-height: calc(100vh - 140px);
+}
+
+.gatems-fleet-sidebar {
+	width: 320px;
+}
+
+.gatems-fleet-list {
+	overflow: auto;
+	flex: 1;
+}
+
+.gatems-fleet-card {
+	text-align: left;
+}
+
+.gatems-fleet-card.is-active,
+.gatems-fleet-card:hover {
+	border-color: var(--outline-blue-4, var(--primary)) !important;
+}
+
+.gatems-fleet-map {
+	min-height: 520px;
+}
+
+.gatems-marker-wrap {
+	background: transparent;
+	border: 0;
+}
+
+.gatems-marker {
+	width: 28px;
+	height: 28px;
+	border-radius: var(--radius-full);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	font-size: 14px;
+	box-shadow: var(--elevation-md, 0 2px 8px rgba(0, 0, 0, 0.25));
+}
+
+.gatems-marker-moving {
+	background: var(--ink-green-6, #16a34a);
+}
+
+.gatems-marker-idle {
+	background: var(--ink-orange-6, #ea580c);
+}
+
+.gatems-marker-stopped,
+.gatems-marker-offline {
+	background: var(--ink-red-6, #dc2626);
+}
+
+@media (max-width: 900px) {
+	.gatems-fleet {
+		flex-direction: column;
+	}
+
+	.gatems-fleet-sidebar {
+		width: 100%;
+		max-height: 240px;
+	}
+}

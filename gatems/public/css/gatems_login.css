@@ -1,0 +1,350 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+	--gatems-ink: #0b1220;
+	--gatems-ink-2: #111a2e;
+	--gatems-paper: #f5f3ee;
+	--gatems-amber: #ff8a3d;
+	--gatems-cyan: #22d3ee;
+}
+
+body:has(.gatems-login),
+body.gatems-login-page {
+	background: var(--gatems-paper) !important;
+	font-family: Inter, system-ui, sans-serif;
+}
+
+body:has(.gatems-login) .navbar,
+body:has(.gatems-login) .web-footer,
+body:has(.gatems-login) footer,
+body:has(.gatems-login) .page-breadcrumbs,
+body:has(.gatems-login) .page-header-wrapper,
+body:has(.gatems-login) .page-footer {
+	display: none !important;
+}
+
+body:has(.gatems-login) .page-content-wrapper,
+body:has(.gatems-login) .page_content,
+body:has(.gatems-login) main,
+body:has(.gatems-login) .gatems-login-main {
+	max-width: none !important;
+	width: 100% !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	min-height: 100dvh;
+}
+
+.gatems-login {
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+	max-height: 100dvh;
+	overflow: hidden;
+	background: var(--gatems-paper);
+}
+
+.gatems-login-hero {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 38vh;
+	overflow: hidden;
+	background: var(--gatems-ink);
+	color: #fff;
+}
+
+.gatems-login-hero-grid {
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+	background-size: 44px 44px;
+	mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
+}
+
+.gatems-login-glow-cyan,
+.gatems-login-glow-amber {
+	position: absolute;
+	border-radius: 999px;
+	filter: blur(64px);
+	pointer-events: none;
+}
+
+.gatems-login-glow-cyan {
+	top: -96px;
+	left: -96px;
+	width: 420px;
+	height: 420px;
+	background: rgba(34, 211, 238, 0.12);
+}
+
+.gatems-login-glow-amber {
+	right: 0;
+	bottom: 0;
+	width: 360px;
+	height: 360px;
+	background: rgba(255, 138, 61, 0.12);
+}
+
+.gatems-login-route {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.7;
+	pointer-events: none;
+}
+
+.gatems-login-route-path {
+	stroke-dasharray: 1400;
+	stroke-dashoffset: 1400;
+	animation: gatems-route 6.5s ease-in-out infinite;
+}
+
+.gatems-login-hero-top,
+.gatems-login-hero-copy,
+.gatems-login-hero-foot {
+	position: relative;
+	z-index: 1;
+	padding: 32px 32px 0;
+}
+
+.gatems-login-hero-copy {
+	padding: 24px 32px 0;
+	max-width: 36rem;
+}
+
+.gatems-login-hero-foot {
+	padding: 24px 32px 28px;
+	color: rgba(255, 255, 255, 0.35);
+	font-size: 12px;
+}
+
+.gatems-brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.gatems-brand-name {
+	font-family: "Space Grotesk", Inter, sans-serif;
+	font-weight: 600;
+	font-size: 18px;
+	letter-spacing: -0.02em;
+	color: #fff;
+}
+
+.gatems-login-panel .gatems-brand-name {
+	color: var(--gatems-ink);
+}
+
+.gatems-live {
+	margin: 0 0 16px;
+	font-family: "IBM Plex Mono", ui-monospace, monospace;
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--gatems-cyan);
+}
+
+.gatems-login-hero h1 {
+	margin: 0;
+	font-family: "Space Grotesk", Inter, sans-serif;
+	font-size: clamp(1.75rem, 3vw, 2.75rem);
+	font-weight: 600;
+	line-height: 1.1;
+	letter-spacing: -0.03em;
+	color: #fff;
+}
+
+.gatems-login-hero-lead {
+	margin: 16px 0 0;
+	max-width: 28rem;
+	font-size: 15px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.gatems-login-features {
+	display: none;
+	grid-template-columns: 1fr 1fr;
+	gap: 14px 24px;
+	margin: 28px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.gatems-login-features li {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.gatems-login-feature-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 6px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	background: rgba(255, 255, 255, 0.05);
+	color: var(--gatems-cyan);
+}
+
+.gatems-login-panel {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 32px 20px;
+	overflow: auto;
+	background: var(--gatems-paper);
+}
+
+.gatems-login-panel > section:not(.for-login) {
+	display: none;
+}
+
+.gatems-login .page-card,
+.gatems-login .login-content {
+	width: min(420px, 100%);
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	background: transparent !important;
+}
+
+.gatems-login .app-logo {
+	display: none !important;
+}
+
+.gatems-login .page-card-head {
+	gap: 20px !important;
+}
+
+.gatems-login .page-card-head h4,
+.gatems-login .for-login .page-card-head h4 {
+	font-family: "Space Grotesk", Inter, sans-serif !important;
+	font-size: 28px !important;
+	font-weight: 600 !important;
+	letter-spacing: -0.03em;
+	color: var(--gatems-ink) !important;
+}
+
+.gatems-login .page-card-subtitle {
+	color: rgba(11, 18, 32, 0.55) !important;
+}
+
+.gatems-login .form-control {
+	min-height: 44px;
+	border-radius: 8px !important;
+	border-color: rgba(0, 0, 0, 0.1) !important;
+	background: #fff !important;
+}
+
+.gatems-login .form-control:focus {
+	border-color: var(--gatems-ink) !important;
+	box-shadow: 0 0 0 3px rgba(11, 18, 32, 0.12) !important;
+}
+
+.gatems-login .es-button[data-variant="solid"],
+.gatems-login button[type="submit"] {
+	min-height: 44px;
+	border-radius: 8px !important;
+	background: var(--gatems-ink) !important;
+	color: #fff !important;
+	border: 0 !important;
+	font-weight: 500 !important;
+}
+
+.gatems-login .btn-login-option,
+.gatems-login .es-button:not([data-variant="solid"]) {
+	border-radius: 8px !important;
+	background: transparent !important;
+	color: var(--gatems-ink) !important;
+	border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.gatems-login-note {
+	margin-top: 8px;
+	font-size: 12px;
+	color: rgba(11, 18, 32, 0.45);
+	text-align: center;
+}
+
+@keyframes gatems-route {
+	0% {
+		stroke-dashoffset: 1400;
+	}
+	55%,
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+
+@media (min-width: 992px) {
+	.gatems-login {
+		flex-direction: row;
+	}
+
+	.gatems-login-hero {
+		width: 52%;
+		min-height: 100dvh;
+	}
+
+	.gatems-login-hero-top,
+	.gatems-login-hero-copy,
+	.gatems-login-hero-foot {
+		padding-left: 56px;
+		padding-right: 56px;
+	}
+
+	.gatems-login-hero-top {
+		padding-top: 48px;
+	}
+
+	.gatems-login-features {
+		display: grid;
+	}
+
+	.gatems-login-panel {
+		width: 48%;
+	}
+}
+
+@media (max-width: 991px) {
+	.web-footer,
+	.website-footer {
+		display: none !important;
+	}
+
+	.gatems-login-hero {
+		min-height: 0;
+	}
+
+	.gatems-login-hero-lead,
+	.gatems-login-hero-foot {
+		display: none;
+	}
+
+	.gatems-login-hero-top,
+	.gatems-login-hero-copy {
+		padding: 20px 20px 0;
+	}
+
+	.gatems-login-hero-copy {
+		padding-bottom: 20px;
+	}
+
+	.gatems-login .page-card-head {
+		gap: 12px !important;
+	}
+}

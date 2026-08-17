@@ -1,0 +1,646 @@
+{
+ "actions": [
+  {
+   "action": "/fleet_tracker",
+   "action_type": "Route",
+   "label": "Demo"
+  }
+ ],
+ "allow_bulk_edit": 1,
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:registration_number",
+ "creation": "2026-08-17 17:51:48.374617",
+ "default_print_format": "Vehicle Record",
+ "description": "India vehicle master for GateMS",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "details_tab",
+  "registration_section",
+  "registration_number",
+  "registration_date",
+  "status",
+  "vehicle_category",
+  "column_break_reg",
+  "vehicle_photo",
+  "state",
+  "rto_code",
+  "registering_authority",
+  "particulars_section",
+  "make",
+  "model",
+  "variant",
+  "color",
+  "column_break_part",
+  "vehicle_class",
+  "vehicle_type",
+  "body_type",
+  "usage_type",
+  "technical_tab",
+  "technical_section",
+  "chassis_number",
+  "engine_number",
+  "manufacturing_year",
+  "fuel_type",
+  "emission_norm",
+  "column_break_tech",
+  "cubic_capacity",
+  "engine_power_bhp",
+  "seating_capacity",
+  "unladen_weight",
+  "gross_vehicle_weight",
+  "number_of_cylinders",
+  "ownership_tab",
+  "ownership_section",
+  "owner_type",
+  "owner_name",
+  "owner_address",
+  "mobile_number",
+  "column_break_own",
+  "company",
+  "assigned_employee",
+  "last_odometer",
+  "compliance_tab",
+  "insurance_section",
+  "insurance_company",
+  "insurance_policy_no",
+  "insurance_type",
+  "column_break_ins",
+  "insurance_start_date",
+  "insurance_valid_upto",
+  "insurance_copy",
+  "compliance_section",
+  "puc_number",
+  "puc_valid_upto",
+  "puc_copy",
+  "tax_valid_upto",
+  "column_break_comp",
+  "fitness_valid_upto",
+  "permit_type",
+  "permit_number",
+  "permit_valid_upto",
+  "permit_copy",
+  "hypothecated",
+  "financier_name",
+  "fastag_id",
+  "gate_tab",
+  "gate_access_section",
+  "access_tag_id",
+  "blacklist_reason",
+  "remarks",
+  "rc_copy",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Details",
+   "show_dashboard": 1
+  },
+  {
+   "fieldname": "technical_tab",
+   "fieldtype": "Tab Break",
+   "label": "Technical"
+  },
+  {
+   "fieldname": "ownership_tab",
+   "fieldtype": "Tab Break",
+   "label": "Ownership"
+  },
+  {
+   "fieldname": "compliance_tab",
+   "fieldtype": "Tab Break",
+   "label": "Insurance & Compliance"
+  },
+  {
+   "fieldname": "gate_tab",
+   "fieldtype": "Tab Break",
+   "label": "Gate Access"
+  },
+  {
+   "fieldname": "registration_section",
+   "fieldtype": "Section Break",
+   "label": "Registration (RC)"
+  },
+  {
+   "fieldname": "vehicle_photo",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Photo",
+   "no_copy": 1
+  },
+  {
+   "bold": 1,
+   "description": "Indian registration mark, e.g. MH12AB1234 or Bharat series 22BH1234AA",
+   "fieldname": "registration_number",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Registration Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "registration_date",
+   "fieldtype": "Date",
+   "label": "Registration Date"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Active\nInactive\nBlacklisted\nSold\nScrapped\nUnder Maintenance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_reg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "State / UT",
+   "options": "\nAndaman and Nicobar Islands\nAndhra Pradesh\nArunachal Pradesh\nAssam\nBihar\nChandigarh\nChhattisgarh\nDadra and Nagar Haveli and Daman and Diu\nDelhi\nGoa\nGujarat\nHaryana\nHimachal Pradesh\nJammu and Kashmir\nJharkhand\nKarnataka\nKerala\nLadakh\nLakshadweep\nMadhya Pradesh\nMaharashtra\nManipur\nMeghalaya\nMizoram\nNagaland\nOdisha\nPuducherry\nPunjab\nRajasthan\nSikkim\nTamil Nadu\nTelangana\nTripura\nUttar Pradesh\nUttarakhand\nWest Bengal"
+  },
+  {
+   "description": "RTO code from the registration mark, e.g. MH12",
+   "fieldname": "rto_code",
+   "fieldtype": "Data",
+   "label": "RTO Code"
+  },
+  {
+   "fieldname": "registering_authority",
+   "fieldtype": "Data",
+   "label": "Registering Authority"
+  },
+  {
+   "default": "Private",
+   "fieldname": "vehicle_category",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Vehicle Category",
+   "options": "Private\nCommercial\nGovernment",
+   "reqd": 1
+  },
+  {
+   "fieldname": "particulars_section",
+   "fieldtype": "Section Break",
+   "label": "Vehicle Particulars"
+  },
+  {
+   "fieldname": "make",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Make",
+   "reqd": 1
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Model",
+   "reqd": 1
+  },
+  {
+   "fieldname": "variant",
+   "fieldtype": "Data",
+   "label": "Variant"
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Data",
+   "label": "Colour"
+  },
+  {
+   "fieldname": "column_break_part",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vehicle_class",
+   "fieldtype": "Select",
+   "label": "Vehicle Class (CMVR)",
+   "options": "\nTwo Wheeler\nThree Wheeler\nLight Motor Vehicle (LMV)\nMedium Goods Vehicle (MGV)\nMedium Passenger Vehicle (MPV)\nHeavy Goods Vehicle (HGV)\nHeavy Passenger Vehicle (HPV)\nTrailer\nConstruction Equipment Vehicle\nAgricultural Tractor\nOthers"
+  },
+  {
+   "fieldname": "vehicle_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Vehicle Type",
+   "options": "\nCar\nSUV\nVan\nBus\nMini Bus\nTruck\nPickup / Tempo\nMotorcycle\nScooter\nAuto Rickshaw\nTractor\nTanker\nAmbulance\nFire Tender\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "body_type",
+   "fieldtype": "Select",
+   "label": "Body Type",
+   "options": "\nSaloon / Sedan\nHatchback\nSUV\nMUV / MPV\nCoupe\nConvertible\nPickup\nHard Top\nSoft Top\nGoods Carrier\nTanker\nTipper\nBus Body\nAmbulance\nOther"
+  },
+  {
+   "fieldname": "usage_type",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Usage Type",
+   "options": "\nCompany Owned\nEmployee\nVisitor\nContractor\nVendor\nGovernment\nOther"
+  },
+  {
+   "fieldname": "technical_section",
+   "fieldtype": "Section Break",
+   "label": "Technical Specifications"
+  },
+  {
+   "fieldname": "chassis_number",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Chassis Number"
+  },
+  {
+   "fieldname": "engine_number",
+   "fieldtype": "Data",
+   "label": "Engine Number"
+  },
+  {
+   "fieldname": "manufacturing_year",
+   "fieldtype": "Int",
+   "label": "Year of Manufacture",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "fuel_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fuel Type",
+   "options": "Petrol\nDiesel\nCNG\nLPG\nElectric\nHybrid (Petrol + Electric)\nHybrid (Diesel + Electric)\nEthanol / Flex Fuel\nHydrogen",
+   "reqd": 1
+  },
+  {
+   "fieldname": "emission_norm",
+   "fieldtype": "Select",
+   "label": "Emission Norm",
+   "options": "\nBS-III\nBS-IV\nBS-VI\nBS-VI Stage 2\nEV (Zero Emission)"
+  },
+  {
+   "fieldname": "column_break_tech",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cubic_capacity",
+   "fieldtype": "Int",
+   "label": "Cubic Capacity (CC)",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "engine_power_bhp",
+   "fieldtype": "Float",
+   "label": "Engine Power (BHP)",
+   "non_negative": 1,
+   "precision": "2"
+  },
+  {
+   "fieldname": "seating_capacity",
+   "fieldtype": "Int",
+   "label": "Seating Capacity",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "unladen_weight",
+   "fieldtype": "Int",
+   "label": "Unladen Weight (kg)",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "gross_vehicle_weight",
+   "fieldtype": "Int",
+   "label": "Gross Vehicle Weight (kg)",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "number_of_cylinders",
+   "fieldtype": "Int",
+   "label": "No. of Cylinders",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "ownership_section",
+   "fieldtype": "Section Break",
+   "label": "Ownership"
+  },
+  {
+   "fieldname": "owner_type",
+   "fieldtype": "Select",
+   "label": "Owner Type",
+   "options": "\nIndividual\nCompany\nGovernment\nPartnership\nTrust / Society"
+  },
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Registered Owner"
+  },
+  {
+   "fieldname": "owner_address",
+   "fieldtype": "Small Text",
+   "label": "Owner Address"
+  },
+  {
+   "fieldname": "mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "column_break_own",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Company"
+  },
+  {
+   "fieldname": "assigned_employee",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Assigned Employee"
+  },
+  {
+   "fieldname": "last_odometer",
+   "fieldtype": "Int",
+   "label": "Last Odometer (km)",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "insurance_section",
+   "fieldtype": "Section Break",
+   "label": "Insurance"
+  },
+  {
+   "fieldname": "insurance_company",
+   "fieldtype": "Data",
+   "label": "Insurance Company"
+  },
+  {
+   "fieldname": "insurance_policy_no",
+   "fieldtype": "Data",
+   "label": "Policy Number"
+  },
+  {
+   "fieldname": "insurance_type",
+   "fieldtype": "Select",
+   "label": "Insurance Type",
+   "options": "\nComprehensive\nThird Party\nOwn Damage"
+  },
+  {
+   "fieldname": "column_break_ins",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_start_date",
+   "fieldtype": "Date",
+   "label": "Insurance Start Date"
+  },
+  {
+   "fieldname": "insurance_valid_upto",
+   "fieldtype": "Date",
+   "label": "Insurance Valid Upto"
+  },
+  {
+   "fieldname": "insurance_copy",
+   "fieldtype": "Attach",
+   "label": "Insurance Copy"
+  },
+  {
+   "fieldname": "compliance_section",
+   "fieldtype": "Section Break",
+   "label": "Statutory Compliance (India)"
+  },
+  {
+   "fieldname": "puc_number",
+   "fieldtype": "Data",
+   "label": "PUC Number"
+  },
+  {
+   "fieldname": "puc_valid_upto",
+   "fieldtype": "Date",
+   "label": "PUC Valid Upto"
+  },
+  {
+   "fieldname": "puc_copy",
+   "fieldtype": "Attach",
+   "label": "PUC Copy"
+  },
+  {
+   "fieldname": "tax_valid_upto",
+   "fieldtype": "Date",
+   "label": "Road Tax Valid Upto"
+  },
+  {
+   "fieldname": "column_break_comp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_category=='Commercial'",
+   "description": "Mandatory for commercial vehicles under CMVR",
+   "fieldname": "fitness_valid_upto",
+   "fieldtype": "Date",
+   "label": "Fitness Certificate Valid Upto"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_category=='Commercial'",
+   "fieldname": "permit_type",
+   "fieldtype": "Select",
+   "label": "Permit Type",
+   "options": "\nNational Permit\nState Permit\nContract Carriage\nStage Carriage\nGoods Permit\nTemporary Permit"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_category=='Commercial'",
+   "fieldname": "permit_number",
+   "fieldtype": "Data",
+   "label": "Permit Number"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_category=='Commercial'",
+   "fieldname": "permit_valid_upto",
+   "fieldtype": "Date",
+   "label": "Permit Valid Upto"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_category=='Commercial'",
+   "fieldname": "permit_copy",
+   "fieldtype": "Attach",
+   "label": "Permit Copy"
+  },
+  {
+   "default": "0",
+   "fieldname": "hypothecated",
+   "fieldtype": "Check",
+   "label": "Hypothecated / Financed"
+  },
+  {
+   "depends_on": "eval:doc.hypothecated==1",
+   "fieldname": "financier_name",
+   "fieldtype": "Data",
+   "label": "Financier Name",
+   "mandatory_depends_on": "eval:doc.hypothecated==1"
+  },
+  {
+   "fieldname": "fastag_id",
+   "fieldtype": "Data",
+   "label": "FASTag ID"
+  },
+  {
+   "fieldname": "gate_access_section",
+   "fieldtype": "Section Break",
+   "label": "Gate Access"
+  },
+  {
+   "description": "RFID / boom-barrier / access-control tag ID",
+   "fieldname": "access_tag_id",
+   "fieldtype": "Data",
+   "label": "Access Tag ID"
+  },
+  {
+   "depends_on": "eval:doc.status=='Blacklisted'",
+   "fieldname": "blacklist_reason",
+   "fieldtype": "Small Text",
+   "label": "Blacklist Reason",
+   "mandatory_depends_on": "eval:doc.status=='Blacklisted'"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "rc_copy",
+   "fieldtype": "Attach",
+   "label": "RC Copy"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Vehicles",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "icon": "car",
+ "image_field": "vehicle_photo",
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Tracking",
+   "link_doctype": "Vehicle Live Track",
+   "link_fieldname": "vehicle"
+  },
+  {
+   "group": "Yard",
+   "link_doctype": "Yard Visit",
+   "link_fieldname": "vehicle"
+  }
+ ],
+ "max_attachments": 5,
+ "modified": "2026-08-17 21:30:41.029202",
+ "modified_by": "Administrator",
+ "module": "GateMS",
+ "name": "Vehicles",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "registration_number,make,model,owner_name,state,fuel_type",
+ "show_name_in_global_search": 1,
+ "show_preview_popup": 1,
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Green",
+   "title": "Active"
+  },
+  {
+   "color": "Gray",
+   "title": "Inactive"
+  },
+  {
+   "color": "Red",
+   "title": "Blacklisted"
+  },
+  {
+   "color": "Orange",
+   "title": "Under Maintenance"
+  },
+  {
+   "color": "Blue",
+   "title": "Sold"
+  },
+  {
+   "color": "Purple",
+   "title": "Scrapped"
+  }
+ ],
+ "title_field": "registration_number",
+ "track_changes": 1
+}

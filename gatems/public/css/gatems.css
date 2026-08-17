@@ -1,0 +1,42 @@
+:root {
+	--gatems-ink: #0b1220;
+	--gatems-ink-2: #111a2e;
+	--gatems-paper: #f5f3ee;
+	--gatems-amber: #ff8a3d;
+	--gatems-cyan: #22d3ee;
+}
+
+[data-theme="light"] {
+	--btn-primary: var(--gatems-ink);
+	--bg-blue: var(--gatems-ink);
+}
+
+.btn-primary,
+.btn.btn-primary {
+	background-color: var(--gatems-ink) !important;
+	border-color: var(--gatems-ink) !important;
+}
+
+.navbar-brand img,
+.navbar .app-logo,
+.app-logo {
+	max-height: 28px;
+}
+
+.gatems-live-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: var(--radius-full);
+	background: var(--ink-green-5, #22c55e);
+	box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink-green-5, #22c55e) 70%, transparent);
+	animation: gatems-pulse 1.6s infinite;
+}
+
+@keyframes gatems-pulse {
+	70% {
+		box-shadow: 0 0 0 8px transparent;
+	}
+	100% {
+		box-shadow: 0 0 0 0 transparent;
+	}
+}

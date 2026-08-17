@@ -1,0 +1,315 @@
+{%- macro val(value) -%}
+{{- value if value or value == 0 else "—" -}}
+{%- endmacro -%}
+
+{%- macro field(label, value) -%}
+<div class="vr-field">
+	<div class="vr-label">{{ label }}</div>
+	<div class="vr-value">{{ val(value) }}</div>
+</div>
+{%- endmacro -%}
+
+<style>
+	.vr {
+		font-family: "Inter", "Noto Sans", Helvetica, Arial, sans-serif;
+		color: #0b1220;
+		line-height: 1.35;
+	}
+	.vr-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding-bottom: 12px;
+		border-bottom: 3px solid #0b1220;
+		margin-bottom: 16px;
+	}
+	.vr-brand {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+	.vr-brand img {
+		width: 36px;
+		height: 36px;
+	}
+	.vr-brand-name {
+		font-size: 20px;
+		font-weight: 800;
+		letter-spacing: 0.02em;
+	}
+	.vr-brand-sub {
+		font-size: 11px;
+		color: #6b7280;
+	}
+	.vr-doc-title {
+		text-align: right;
+	}
+	.vr-doc-title strong {
+		display: block;
+		font-size: 13px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+	.vr-hero {
+		display: flex;
+		gap: 16px;
+		align-items: stretch;
+		margin-bottom: 16px;
+	}
+	.vr-photo {
+		width: 150px;
+		min-height: 110px;
+		border: 1px solid #d6d3cd;
+		border-radius: 8px;
+		background: #f5f3ee;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		flex-shrink: 0;
+	}
+	.vr-photo img {
+		width: 100%;
+		height: 110px;
+		object-fit: cover;
+	}
+	.vr-photo-empty {
+		font-size: 11px;
+		color: #9ca3af;
+		text-align: center;
+		padding: 12px;
+	}
+	.vr-hero-main {
+		flex: 1;
+	}
+	.vr-plate {
+		display: inline-block;
+		border: 2px solid #0b1220;
+		border-radius: 6px;
+		padding: 6px 14px;
+		background: #facc15;
+		font-size: 22px;
+		font-weight: 800;
+		letter-spacing: 0.14em;
+		font-family: "Courier New", Courier, monospace;
+	}
+	.vr-model {
+		margin-top: 8px;
+		font-size: 16px;
+		font-weight: 700;
+	}
+	.vr-pills {
+		margin-top: 8px;
+	}
+	.vr-pill {
+		display: inline-block;
+		border-radius: 999px;
+		padding: 2px 8px;
+		font-size: 11px;
+		margin-right: 6px;
+		background: #f3f4f6;
+		border: 1px solid #e5e7eb;
+	}
+	.vr-pill-active { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+	.vr-pill-blacklisted { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+	.vr-pill-inactive, .vr-pill-sold, .vr-pill-scrapped { background: #e5e7eb; color: #374151; }
+	.vr-pill-under-maintenance { background: #ffedd5; color: #9a3412; border-color: #fed7aa; }
+	.vr-section {
+		margin-bottom: 14px;
+		page-break-inside: avoid;
+	}
+	.vr-section h3 {
+		margin: 0 0 8px;
+		padding: 6px 10px;
+		background: #0b1220;
+		color: #fff;
+		font-size: 12px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		border-radius: 4px;
+	}
+	.vr-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0;
+		border: 1px solid #e5e7eb;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	.vr-field {
+		padding: 7px 10px;
+		border-bottom: 1px solid #eee;
+		border-right: 1px solid #eee;
+	}
+	.vr-label {
+		font-size: 10px;
+		color: #6b7280;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+	.vr-value {
+		font-size: 12px;
+		font-weight: 600;
+		word-break: break-word;
+	}
+	.vr-notes {
+		padding: 8px 10px;
+		border: 1px solid #e5e7eb;
+		border-radius: 4px;
+		white-space: pre-wrap;
+	}
+	.vr-footer {
+		margin-top: 18px;
+		padding-top: 8px;
+		border-top: 1px dashed #d1d5db;
+		display: flex;
+		justify-content: space-between;
+		font-size: 10px;
+		color: #6b7280;
+	}
+	@media print {
+		.vr-section { page-break-inside: avoid; }
+	}
+</style>
+
+<div class="vr">
+	{% if letter_head %}
+	<div class="letter-head">{{ letter_head }}</div>
+	{% endif %}
+
+	<div class="vr-header">
+		<div class="vr-brand">
+			<img src="/assets/gatems/images/gatems-mark.svg" alt="GateMS">
+			<div>
+				<div class="vr-brand-name">GateMS</div>
+				<div class="vr-brand-sub">{{ _("Gate Management System") }}</div>
+			</div>
+		</div>
+		<div class="vr-doc-title">
+			<strong>{{ _("Vehicle Record") }}</strong>
+			<div>{{ _("Printed on") }} {{ frappe.utils.format_datetime(frappe.utils.now()) }}</div>
+		</div>
+	</div>
+
+	<div class="vr-hero">
+		<div class="vr-photo">
+			{% if doc.vehicle_photo %}
+			<img src="{{ doc.vehicle_photo }}" alt="{{ doc.registration_number }}">
+			{% else %}
+			<div class="vr-photo-empty">{{ _("No photograph") }}</div>
+			{% endif %}
+		</div>
+		<div class="vr-hero-main">
+			<div class="vr-plate">{{ doc.registration_number }}</div>
+			<div class="vr-model">{{ doc.make }} {{ doc.model }}{% if doc.variant %} {{ doc.variant }}{% endif %}</div>
+			<div class="vr-pills">
+				<span class="vr-pill vr-pill-{{ (doc.status or '')|lower|replace(' ', '-') }}">{{ val(doc.status) }}</span>
+				<span class="vr-pill">{{ val(doc.vehicle_category) }}</span>
+				<span class="vr-pill">{{ val(doc.vehicle_type) }}</span>
+				<span class="vr-pill">{{ val(doc.fuel_type) }}</span>
+			</div>
+		</div>
+	</div>
+
+	<section class="vr-section">
+		<h3>{{ _("Registration (RC)") }}</h3>
+		<div class="vr-grid">
+			{{ field(_("Registration Number"), doc.registration_number) }}
+			{{ field(_("Registration Date"), doc.get_formatted("registration_date")) }}
+			{{ field(_("State / UT"), doc.state) }}
+			{{ field(_("RTO Code"), doc.rto_code) }}
+			{{ field(_("Registering Authority"), doc.registering_authority) }}
+			{{ field(_("Vehicle Category"), doc.vehicle_category) }}
+			{{ field(_("Usage Type"), doc.usage_type) }}
+			{{ field(_("RC Copy"), doc.rc_copy and _("Attached") or _("Not attached")) }}
+		</div>
+	</section>
+
+	<section class="vr-section">
+		<h3>{{ _("Vehicle Particulars") }}</h3>
+		<div class="vr-grid">
+			{{ field(_("Make"), doc.make) }}
+			{{ field(_("Model"), doc.model) }}
+			{{ field(_("Variant"), doc.variant) }}
+			{{ field(_("Colour"), doc.color) }}
+			{{ field(_("Vehicle Class (CMVR)"), doc.vehicle_class) }}
+			{{ field(_("Vehicle Type"), doc.vehicle_type) }}
+			{{ field(_("Body Type"), doc.body_type) }}
+			{{ field(_("Status"), doc.status) }}
+		</div>
+	</section>
+
+	<section class="vr-section">
+		<h3>{{ _("Technical Specifications") }}</h3>
+		<div class="vr-grid">
+			{{ field(_("Chassis Number"), doc.chassis_number) }}
+			{{ field(_("Engine Number"), doc.engine_number) }}
+			{{ field(_("Year of Manufacture"), doc.manufacturing_year) }}
+			{{ field(_("Fuel Type"), doc.fuel_type) }}
+			{{ field(_("Emission Norm"), doc.emission_norm) }}
+			{{ field(_("Cubic Capacity (CC)"), doc.cubic_capacity) }}
+			{{ field(_("Engine Power (BHP)"), doc.get_formatted("engine_power_bhp")) }}
+			{{ field(_("Seating Capacity"), doc.seating_capacity) }}
+			{{ field(_("Unladen Weight (kg)"), doc.unladen_weight) }}
+			{{ field(_("Gross Vehicle Weight (kg)"), doc.gross_vehicle_weight) }}
+			{{ field(_("No. of Cylinders"), doc.number_of_cylinders) }}
+			{{ field(_("Last Odometer (km)"), doc.last_odometer) }}
+		</div>
+	</section>
+
+	<section class="vr-section">
+		<h3>{{ _("Ownership") }}</h3>
+		<div class="vr-grid">
+			{{ field(_("Owner Type"), doc.owner_type) }}
+			{{ field(_("Registered Owner"), doc.owner_name) }}
+			{{ field(_("Owner Address"), doc.owner_address) }}
+			{{ field(_("Mobile Number"), doc.mobile_number) }}
+			{{ field(_("Company"), doc.company) }}
+			{{ field(_("Assigned Employee"), doc.assigned_employee) }}
+		</div>
+	</section>
+
+	<section class="vr-section">
+		<h3>{{ _("Insurance & Compliance") }}</h3>
+		<div class="vr-grid">
+			{{ field(_("Insurance Company"), doc.insurance_company) }}
+			{{ field(_("Policy Number"), doc.insurance_policy_no) }}
+			{{ field(_("Insurance Type"), doc.insurance_type) }}
+			{{ field(_("Insurance Start"), doc.get_formatted("insurance_start_date")) }}
+			{{ field(_("Insurance Valid Upto"), doc.get_formatted("insurance_valid_upto")) }}
+			{{ field(_("PUC Number"), doc.puc_number) }}
+			{{ field(_("PUC Valid Upto"), doc.get_formatted("puc_valid_upto")) }}
+			{{ field(_("Road Tax Valid Upto"), doc.get_formatted("tax_valid_upto")) }}
+			{% if doc.vehicle_category == "Commercial" %}
+			{{ field(_("Fitness Valid Upto"), doc.get_formatted("fitness_valid_upto")) }}
+			{{ field(_("Permit Type"), doc.permit_type) }}
+			{{ field(_("Permit Number"), doc.permit_number) }}
+			{{ field(_("Permit Valid Upto"), doc.get_formatted("permit_valid_upto")) }}
+			{% endif %}
+			{{ field(_("Hypothecated / Financed"), _("Yes") if doc.hypothecated else _("No")) }}
+			{{ field(_("Financier Name"), doc.financier_name) }}
+			{{ field(_("FASTag ID"), doc.fastag_id) }}
+		</div>
+	</section>
+
+	<section class="vr-section">
+		<h3>{{ _("Gate Access") }}</h3>
+		<div class="vr-grid">
+			{{ field(_("Access Tag ID"), doc.access_tag_id) }}
+			{{ field(_("Status"), doc.status) }}
+			{% if doc.status == "Blacklisted" %}
+			{{ field(_("Blacklist Reason"), doc.blacklist_reason) }}
+			{% endif %}
+		</div>
+		{% if doc.remarks %}
+		<div style="height: 8px;"></div>
+		<div class="vr-notes"><strong>{{ _("Remarks") }}:</strong> {{ doc.remarks }}</div>
+		{% endif %}
+	</section>
+
+	<div class="vr-footer">
+		<span>{{ _("Document") }}: {{ doc.name }}</span>
+		<span>{{ _("This is a computer-generated vehicle record from GateMS.") }}</span>
+	</div>
+</div>

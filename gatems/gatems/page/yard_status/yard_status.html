@@ -1,0 +1,31 @@
+<div class="gatems-yard flex flex-col gap-4 pb-4">
+	<div class="flex items-center gap-2">
+		<span class="gatems-live-dot shrink-0"></span>
+		Live yard
+		<span id="gatems-yard-meta" class="ms-auto text-ink-gray-5"></span>
+	</div>
+	<div id="gatems-yard-kpis" class="gatems-yard-kpis"></div>
+	<div class="gatems-yard-layout">
+		<section class="gatems-yard-zone flex flex-col p-4 rounded-xl border">
+			<div class="flex justify-between items-baseline gap-2 mb-3">
+				<strong class="text-ink-base">Parking</strong>
+				<small class="text-ink-gray-5">Checked in · waiting for dock</small>
+			</div>
+			<div class="gatems-yard-grid flex-1" id="gatems-yard-parking"></div>
+		</section>
+		<section class="gatems-yard-zone flex flex-col p-4 rounded-xl border">
+			<div class="flex justify-between items-baseline gap-2 mb-3">
+				<strong class="text-ink-base">Docks</strong>
+				<small class="text-ink-gray-5">Assigned · loading / unloading</small>
+			</div>
+			<div class="gatems-yard-grid flex-1" id="gatems-yard-docks"></div>
+		</section>
+		<section class="gatems-yard-zone flex flex-col p-4 rounded-xl border">
+			<div class="flex justify-between items-baseline gap-2 mb-3">
+				<strong class="text-ink-base">Exit Gate</strong>
+				<small class="text-ink-gray-5">Ready to check out</small>
+			</div>
+			<div class="flex flex-col gap-2 flex-1" id="gatems-yard-ready"></div>
+		</section>
+	</div>
+</div>

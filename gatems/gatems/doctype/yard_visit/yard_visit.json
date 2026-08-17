@@ -1,0 +1,373 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 0,
+ "autoname": "format:YV-{YYYY}-{#####}",
+ "creation": "2026-08-17 21:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "visit_tab",
+  "vehicle_source",
+  "vehicle",
+  "vehicle_type",
+  "column_break_veh",
+  "status",
+  "visit_type",
+  "parking_slot",
+  "dock",
+  "vehicle_section",
+  "make",
+  "model",
+  "column_break_v2",
+  "is_new_vehicle",
+  "driver_section",
+  "driver_name",
+  "driver_mobile",
+  "column_break_drv",
+  "driver_license_no",
+  "transporter",
+  "material_section",
+  "material_type",
+  "material_description",
+  "party_name",
+  "column_break_mat",
+  "quantity",
+  "uom",
+  "reference_no",
+  "times_tab",
+  "check_in_time",
+  "dock_assigned_time",
+  "operation_start",
+  "column_break_time",
+  "operation_end",
+  "dock_out_time",
+  "check_out_time",
+  "remarks_section",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "visit_tab",
+   "fieldtype": "Tab Break",
+   "label": "Visit"
+  },
+  {
+   "default": "Master",
+   "fieldname": "vehicle_source",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Vehicle Source",
+   "options": "Master\nNew Vehicle"
+  },
+  {
+   "bold": 1,
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Vehicle",
+   "options": "Vehicles",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "vehicle.vehicle_type",
+   "fetch_if_empty": 1,
+   "fieldname": "vehicle_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Vehicle Type",
+   "options": "\nCar\nSUV\nVan\nBus\nMini Bus\nTruck\nPickup / Tempo\nMotorcycle\nScooter\nAuto Rickshaw\nTractor\nTanker\nAmbulance\nFire Tender\nOther"
+  },
+  {
+   "fieldname": "column_break_veh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Parked",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Yard Status",
+   "options": "Parked\nDock Assigned\nOn Dock\nLoading\nUnloading\nReady to Check Out\nChecked Out",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "Unloading",
+   "fieldname": "visit_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Visit Type",
+   "options": "Loading\nUnloading\nBoth",
+   "reqd": 1
+  },
+  {
+   "fieldname": "parking_slot",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Parking Slot",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dock",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Dock",
+   "options": "Dock",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vehicle_section",
+   "fieldtype": "Section Break",
+   "label": "Vehicle Particulars"
+  },
+  {
+   "fetch_from": "vehicle.make",
+   "fetch_if_empty": 1,
+   "fieldname": "make",
+   "fieldtype": "Data",
+   "label": "Make"
+  },
+  {
+   "fetch_from": "vehicle.model",
+   "fetch_if_empty": 1,
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "fieldname": "column_break_v2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_new_vehicle",
+   "fieldtype": "Check",
+   "label": "Created at Check-in"
+  },
+  {
+   "fieldname": "driver_section",
+   "fieldtype": "Section Break",
+   "label": "Driver"
+  },
+  {
+   "fieldname": "driver_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Driver Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "driver_mobile",
+   "fieldtype": "Data",
+   "label": "Driver Mobile"
+  },
+  {
+   "fieldname": "column_break_drv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "driver_license_no",
+   "fieldtype": "Data",
+   "label": "Driver License No"
+  },
+  {
+   "fieldname": "transporter",
+   "fieldtype": "Data",
+   "label": "Transporter"
+  },
+  {
+   "fieldname": "material_section",
+   "fieldtype": "Section Break",
+   "label": "Material"
+  },
+  {
+   "fieldname": "material_type",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Material Type",
+   "options": "\nFinished Goods\nRaw Material\nPackaging\nSpare Parts\nWaste / Return\nEmpty Vehicle\nOther"
+  },
+  {
+   "fieldname": "material_description",
+   "fieldtype": "Small Text",
+   "label": "Material Description"
+  },
+  {
+   "fieldname": "party_name",
+   "fieldtype": "Data",
+   "label": "Customer / Vendor"
+  },
+  {
+   "fieldname": "column_break_mat",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity",
+   "non_negative": 1,
+   "precision": "2"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Data",
+   "label": "UOM"
+  },
+  {
+   "fieldname": "reference_no",
+   "fieldtype": "Data",
+   "label": "Invoice / PO / DN"
+  },
+  {
+   "fieldname": "times_tab",
+   "fieldtype": "Tab Break",
+   "label": "Timeline"
+  },
+  {
+   "fieldname": "check_in_time",
+   "fieldtype": "Datetime",
+   "label": "Check In",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dock_assigned_time",
+   "fieldtype": "Datetime",
+   "label": "Dock Assigned",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operation_start",
+   "fieldtype": "Datetime",
+   "label": "Loading / Unloading Start",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_time",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "operation_end",
+   "fieldtype": "Datetime",
+   "label": "Loading / Unloading Stop",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dock_out_time",
+   "fieldtype": "Datetime",
+   "label": "Dock Out",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_out_time",
+   "fieldtype": "Datetime",
+   "label": "Check Out",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks_section",
+   "fieldtype": "Section Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-17 21:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "GateMS",
+ "name": "Yard Visit",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 0,
+ "row_format": "Dynamic",
+ "search_fields": "vehicle,driver_name,status,dock,party_name,material_type",
+ "show_name_in_global_search": 1,
+ "show_preview_popup": 1,
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Orange",
+   "title": "Parked"
+  },
+  {
+   "color": "Blue",
+   "title": "Dock Assigned"
+  },
+  {
+   "color": "Cyan",
+   "title": "On Dock"
+  },
+  {
+   "color": "Yellow",
+   "title": "Loading"
+  },
+  {
+   "color": "Purple",
+   "title": "Unloading"
+  },
+  {
+   "color": "Green",
+   "title": "Ready to Check Out"
+  },
+  {
+   "color": "Grey",
+   "title": "Checked Out"
+  }
+ ],
+ "title_field": "vehicle",
+ "track_changes": 1
+}

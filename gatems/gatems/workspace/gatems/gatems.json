@@ -1,0 +1,156 @@
+{
+ "app": "gatems",
+ "charts": [],
+ "content": "[{\"id\": \"gatems-yard-header\", \"type\": \"header\", \"data\": {\"text\": \"<b>Yard Management</b>\", \"col\": 12}}, {\"id\": \"gatems-yard-board\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Yard Board\", \"col\": 4}}, {\"id\": \"gatems-yard-visits\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Yard Visits\", \"col\": 4}}, {\"id\": \"gatems-header\", \"type\": \"header\", \"data\": {\"text\": \"<b>Masters</b>\", \"col\": 12}}, {\"id\": \"gatems-vehicles\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Vehicles\", \"col\": 4}}, {\"id\": \"gatems-tracker\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Fleet Tracker\", \"col\": 4}}, {\"id\": \"gatems-card-yard\", \"type\": \"card\", \"data\": {\"card_name\": \"Yard\", \"col\": 4}}, {\"id\": \"gatems-card-masters\", \"type\": \"card\", \"data\": {\"card_name\": \"Masters\", \"col\": 4}}, {\"id\": \"gatems-card-track\", \"type\": \"card\", \"data\": {\"card_name\": \"Tracking\", \"col\": 4}}]",
+ "creation": "2026-08-17 12:00:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "car",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "GateMS",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Yard",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Yard Board",
+   "link_count": 0,
+   "link_to": "yard-status",
+   "link_type": "Page",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Yard Visits",
+   "link_count": 0,
+   "link_to": "Yard Visit",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Docks",
+   "link_count": 0,
+   "link_to": "Dock",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Masters",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicles",
+   "link_count": 0,
+   "link_to": "Vehicles",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tracking",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fleet Tracker",
+   "link_count": 0,
+   "link_to": "fleet-tracker",
+   "link_type": "Page",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicle Live Track",
+   "link_count": 0,
+   "link_to": "Vehicle Live Track",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-17 21:10:00.000000",
+ "modified_by": "Administrator",
+ "module": "GateMS",
+ "name": "GateMS",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Gate Manager"
+  },
+  {
+   "role": "Gate User"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Orange",
+   "label": "Yard Board",
+   "link_to": "yard-status",
+   "type": "Page"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Yard Visits",
+   "link_to": "Yard Visit",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Vehicles",
+   "link_to": "Vehicles",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "label": "Fleet Tracker",
+   "link_to": "fleet-tracker",
+   "type": "Page"
+  }
+ ],
+ "sidebar_items": [],
+ "standard": 1,
+ "title": "GateMS",
+ "type": "Workspace"
+}

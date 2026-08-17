@@ -1,0 +1,232 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 0,
+ "autoname": "field:vehicle",
+ "creation": "2026-08-17 18:30:00.000000",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "vehicle_section",
+  "vehicle",
+  "make",
+  "model",
+  "column_break_veh",
+  "status",
+  "last_ping",
+  "is_demo",
+  "position_section",
+  "latitude",
+  "longitude",
+  "location_name",
+  "column_break_pos",
+  "speed_kmph",
+  "heading",
+  "ignition",
+  "map_section",
+  "geolocation",
+  "demo_progress"
+ ],
+ "fields": [
+  {
+   "fieldname": "vehicle_section",
+   "fieldtype": "Section Break",
+   "label": "Vehicle"
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Vehicle",
+   "options": "Vehicles",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fetch_from": "vehicle.make",
+   "fieldname": "make",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Make",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "vehicle.model",
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_veh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Idle",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Live Status",
+   "options": "Moving\nIdle\nStopped\nOffline",
+   "reqd": 1
+  },
+  {
+   "fieldname": "last_ping",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Last Ping"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_demo",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Demo Vehicle"
+  },
+  {
+   "fieldname": "position_section",
+   "fieldtype": "Section Break",
+   "label": "Live Position"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "7",
+   "reqd": 1
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "7",
+   "reqd": 1
+  },
+  {
+   "fieldname": "location_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Location"
+  },
+  {
+   "fieldname": "column_break_pos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "speed_kmph",
+   "fieldtype": "Float",
+   "label": "Speed (km/h)",
+   "non_negative": 1,
+   "precision": "1"
+  },
+  {
+   "description": "Direction of travel in degrees (0-360)",
+   "fieldname": "heading",
+   "fieldtype": "Float",
+   "label": "Heading",
+   "non_negative": 1,
+   "precision": "1"
+  },
+  {
+   "default": "1",
+   "fieldname": "ignition",
+   "fieldtype": "Check",
+   "label": "Ignition On"
+  },
+  {
+   "fieldname": "map_section",
+   "fieldtype": "Section Break",
+   "label": "Map"
+  },
+  {
+   "fieldname": "geolocation",
+   "fieldtype": "Geolocation",
+   "label": "Map"
+  },
+  {
+   "default": "0",
+   "fieldname": "demo_progress",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Demo Progress",
+   "precision": "4"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-17 18:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "GateMS",
+ "name": "Vehicle Live Track",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate User",
+   "share": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "vehicle,make,model,location_name,status",
+ "show_name_in_global_search": 1,
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Green",
+   "title": "Moving"
+  },
+  {
+   "color": "Orange",
+   "title": "Idle"
+  },
+  {
+   "color": "Grey",
+   "title": "Stopped"
+  },
+  {
+   "color": "Red",
+   "title": "Offline"
+  }
+ ],
+ "title_field": "vehicle",
+ "track_changes": 1
+}

@@ -1,0 +1,49 @@
+name: gatems
+
+services:
+  mariadb:
+    image: mariadb:10.8
+    container_name: gatems-mariadb
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: "123"
+    volumes:
+      - gatems-mariadb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p123"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+  redis:
+    image: redis:alpine
+    container_name: gatems-redis
+
+  frappe:
+    image: frappe/bench:latest
+    container_name: gatems-frappe
+    command: bash /workspace/gatems/init.sh
+    environment:
+      SHELL: /bin/bash
+      SITE: gatems.localhost
+      ADMIN_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: "123"
+    working_dir: /home/frappe
+    volumes:
+      - .:/workspace/gatems
+    ports:
+      - "8080:8000"
+      - "9001:9000"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+volumes:
+  gatems-mariadb-data:

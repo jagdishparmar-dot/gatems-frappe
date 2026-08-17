@@ -1,0 +1,286 @@
+{% from "templates/includes/login/macros.html" import alert_banner %}
+{% extends "templates/web.html" %}
+{% block navbar %}{% endblock %}
+{% macro email_login_body() -%}
+{% if not disable_user_pass_login or (ldap_settings and ldap_settings.enabled) %}
+<div class="page-card-body flex flex-col gap-4">
+	{{ alert_banner("error") }}
+	<div class="form-group flex flex-col items-start gap-1.5 mb-0">
+		<label class="text-base text-ink-gray-5 w-full mb-0" for="login_email">{{ login_label or _("Work email")}}</label>
+		<div class="email-field">
+			<input type="text" id="login_email" class="form-control"
+				placeholder="{% if login_name_placeholder %}{{ login_name_placeholder  }}{% else %}{{ _('you@company.com') }}{% endif %}"
+				required autofocus autocomplete="username">
+		</div>
+		<p class="field-error text-base text-ink-red-8 mb-0"></p>
+	</div>
+
+	<div class="form-group flex flex-col items-start gap-2 mb-0">
+		<div class="flex flex-col items-start gap-1.5 w-full">
+			<label class="text-base text-ink-gray-5 w-full mb-0" for="login_password">{{ _("Password") }}</label>
+			<div class="password-field">
+				<input type="password" id="login_password" class="form-control" placeholder="••••••••"
+					autocomplete="current-password" required>
+
+				<svg toggle="#login_password" class="icon icon-sm toggle-password" xmlns="http://www.w3.org/2000/svg">
+						<use href="#icon-eye"></use>
+					</svg>
+			</div>
+			<p class="field-error text-base text-ink-red-8 mb-0"></p>
+		</div>
+		{% if not disable_user_pass_login %}
+		<p class="text-lg text-right w-full mb-0">
+			<a href="#forgot" class="text-base text-ink-gray-5">{{ _("Forgot password?") }}</a>
+		</p>
+		{% endif %}
+	</div>
+</div>
+{% endif %}
+<div class="page-card-actions flex flex-col gap-3">
+	{% if not disable_user_pass_login %}
+	<button class="es-button w-full" data-variant="solid" type="submit">
+		{{ _("Sign in") }}</button>
+	{% endif %}
+	{% if ldap_settings and ldap_settings.enabled %}
+	<button class="es-button w-full btn-ldap-login" data-variant="solid">
+		{{ _("Login with LDAP") }}</button>
+	{% endif %}
+	{% if login_with_email_link %}
+	<a href="#login-with-email-link"
+		class="es-button w-full btn-login-option btn-login-with-email-link">
+		{{ _("Login with Email Link") }}</a>
+	{% endif %}
+	{% if social_login %}
+	<div class="social-logins text-center text-base">
+		<div class="social-login-buttons">
+			{% for provider in provider_logins %}
+			<div class="login-button-wrapper">
+				<a href="{{ provider.auth_url }}"
+					class="es-button w-full btn-login-option btn-{{ provider.name }}">
+					{% if provider.icon %}
+						{{ provider.icon }}
+					{% endif %}
+					{{ _("Login with {0}").format(provider.provider_name) }}</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endmacro %}
+
+{% block head_include %}
+{{ include_style('login.bundle.css') }}
+{% endblock %}
+
+{% macro gatems_mark() %}
+<svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+	<rect width="32" height="32" rx="8" fill="#ff8a3d"></rect>
+	<path d="M8 20L14 12L18 17L24 9" stroke="#0b1220" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+	<circle cx="24" cy="9" r="2" fill="#0b1220"></circle>
+</svg>
+{% endmacro %}
+
+{% macro logo_section(title=null, subtitle=null) %}
+<div class="page-card-head flex flex-col items-start gap-4 text-left">
+	<div class="gatems-brand">
+		{{ gatems_mark() }}
+		<span class="gatems-brand-name">GateMS</span>
+	</div>
+	<div class="page-card-head-text flex flex-col gap-1.5 w-full">
+		{% if title %}
+		<h4 class="text-3xl-bold text-ink-gray-9 w-full mt-0 mb-0">{{ _(title) }}</h4>
+		{% else %}
+		<h4 class="text-3xl-bold text-ink-gray-9 w-full mt-0 mb-0">{{ _('Welcome Back') }}</h4>
+		{% endif %}
+		{% if subtitle %}
+		<p class="page-card-subtitle text-p-base text-ink-gray-6 mb-0">{{ _(subtitle) }}</p>
+		{% endif %}
+	</div>
+</div>
+{% endmacro %}
+
+{% block page_container %}
+<main class="gatems-login-main">
+	<div class="page_content">
+		{{ self.page_content() }}
+	</div>
+</main>
+{% endblock %}
+
+{% block page_content %}
+
+<!-- {{ for_test }} -->
+<div class="gatems-login">
+	<section class="gatems-login-hero" aria-label="{{ _('Gate management platform overview') }}">
+		<div class="gatems-login-hero-grid"></div>
+		<div class="gatems-login-glow-cyan"></div>
+		<div class="gatems-login-glow-amber"></div>
+		<svg class="gatems-login-route" viewBox="0 0 960 400" preserveAspectRatio="none" aria-hidden="true">
+			<path d="M20,260 C120,60 260,340 380,140 S620,40 700,180 S880,300 940,120" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="2"></path>
+			<path class="gatems-login-route-path" d="M20,260 C120,60 260,340 380,140 S620,40 700,180 S880,300 940,120" fill="none" stroke="#22d3ee" stroke-width="2"></path>
+		</svg>
+		<div class="gatems-login-hero-top">
+			<div class="gatems-brand">
+				{{ gatems_mark() }}
+				<span class="gatems-brand-name">GateMS</span>
+			</div>
+		</div>
+		<div class="gatems-login-hero-copy">
+			<p class="gatems-live">{{ _("Live dispatch") }}</p>
+			<h1>{{ _("Smart Gate Management System") }}</h1>
+			<p class="gatems-login-hero-lead">{{ _("Manage vehicles, live tracking, gate access, and fleet operations from one platform.") }}</p>
+			<ul class="gatems-login-features">
+				<li>
+					<span class="gatems-login-feature-icon" aria-hidden="true">
+						<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.2L4.6 8.8L10 3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</span>
+					{{ _("Vehicle Master") }}
+				</li>
+				<li>
+					<span class="gatems-login-feature-icon" aria-hidden="true">
+						<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.2L4.6 8.8L10 3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</span>
+					{{ _("Fleet Tracker") }}
+				</li>
+				<li>
+					<span class="gatems-login-feature-icon" aria-hidden="true">
+						<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.2L4.6 8.8L10 3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</span>
+					{{ _("Live Tracking") }}
+				</li>
+				<li>
+					<span class="gatems-login-feature-icon" aria-hidden="true">
+						<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.2L4.6 8.8L10 3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</span>
+					{{ _("Gate Access") }}
+				</li>
+			</ul>
+		</div>
+		<p class="gatems-login-hero-foot">© 2026 GateMS — Gate Management System</p>
+	</section>
+	<div class="gatems-login-panel">
+	<noscript>
+		<div class="text-center my-5">
+			<h4>{{ _("Javascript is disabled on your browser") }}</h4>
+			<p class="text-muted">
+				{{ _("You need to enable JavaScript for your app to work.") }}<br>{{ _("To enable it follow the instructions in the following link: {0}").format("<a href='https://enable-javascript.com/'>enable-javascript.com</a></p>") }}
+		</div>
+	</noscript>
+	<section class='for-login'>
+		<div class="login-content page-card flex flex-col gap-5">
+			{{ logo_section(_('Welcome Back'), _('Sign in to continue to your GateMS dashboard.')) }}
+			<form class="form-signin form-login flex flex-col gap-8" role="form" novalidate>
+				{{ email_login_body() }}
+			</form>
+			{%- if not disable_signup and not disable_user_pass_login -%}
+			<div class="text-center sign-up-message text-p-sm text-ink-gray-6 mt-auto mb-0">
+				{{ _("Don't have an account?") }}
+				<a href="#signup" class="text-p-sm-semibold text-ink-gray-6">{{ _("Sign up") }}</a>
+			</div>
+			{%- endif -%}
+		</div>
+		<p class="gatems-login-note">{{ _("Use your GateMS account to access Vehicles and Fleet Tracker.") }}</p>
+	</section>
+
+	{%- if social_login -%}
+	<section class='for-email-login'>
+		<div class="login-content page-card flex flex-col gap-5">
+			{{ logo_section(_('Welcome Back'), _('Sign in to continue to your GateMS dashboard.')) }}
+			<form class="form-signin form-login flex flex-col gap-8" role="form" novalidate>
+			{{ email_login_body() }}
+			</form>
+			{%- if not disable_signup and not disable_user_pass_login -%}
+			<div class="text-center sign-up-message text-p-sm text-ink-gray-6 mt-auto mb-0">
+				{{ _("Don't have an account?") }}
+				<a href="#signup" class="text-p-sm-semibold text-ink-gray-6">{{ _("Sign up") }}</a>
+			</div>
+			{%- endif -%}
+		</div>
+	</section>
+	{%- endif -%}
+	<section class='for-signup {{ "signup-disabled" if disable_signup else "" }}'>
+		<div class="login-content page-card flex flex-col gap-5">
+			{{ logo_section(_('Sign Up'), _("Let's setup your account.")) }}
+			{%- if not disable_signup -%}
+			{{ signup_form_template }}
+			{%- else -%}
+			<div class="signup-disabled-message">
+				<span class='indicator gray'>{{_("Signup Disabled")}}</span>
+				<p class="text-muted text-normal sign-up-message mt-1 mb-8">{{_("Signups have been disabled for this website.")}}</p>
+				<div><a href='/' class='es-button' data-variant="solid">{{ _("Home") }}</a></div>
+			</div>
+			{%- endif -%}
+		</div>
+	</section>
+
+	<section class='for-forgot'>
+		<div class="login-content page-card flex flex-col gap-5">
+			{{ logo_section(_('Forgot Password?'), _("Please enter your email, we'll send you password reset link")) }}
+			<form class="form-signin form-forgot hide flex flex-col gap-8" role="form" novalidate>
+				<div class="page-card-body flex flex-col gap-4">
+					{{ alert_banner("success") }}
+					{{ alert_banner("error") }}
+					<div class="form-group flex flex-col items-start gap-1.5 mb-0">
+						<label class="text-base text-ink-gray-5 w-full mb-0" for="forgot_email">{{ _("Email") }}</label>
+						<div class="email-field">
+							<input type="email" id="forgot_email" class="form-control"
+								placeholder="{{ _('jane@example.com') }}" required autofocus autocomplete="username">
+						</div>
+						<p class="field-error text-base text-ink-red-8 mb-0"></p>
+					</div>
+				</div>
+				<div class="page-card-actions flex flex-col gap-3">
+					<button class="es-button w-full btn-forgot" data-variant="solid"
+						type="submit" disabled>{{ _("Send Link") }}</button>
+				</div>
+			</form>
+			<div class="text-center sign-up-message text-p-sm text-ink-gray-6 mt-auto mb-0">
+				<a href="#login" class="text-p-sm-semibold text-ink-gray-6">{{ _("Back to sign in") }}</a>
+			</div>
+		</div>
+	</section>
+
+	<section class='for-login-with-email-link'>
+		<div class="login-content page-card flex flex-col gap-5">
+			{{ logo_section(_('Welcome Back'), _('Sign in to continue to your GateMS dashboard.')) }}
+			<form class="form-signin form-login-with-email-link hide flex flex-col gap-8" role="form" novalidate>
+				<div class="page-card-body flex flex-col gap-4">
+					{{ alert_banner("success", _("Please check your email.")) }}
+					{{ alert_banner("error") }}
+					<div class="form-group flex flex-col items-start gap-1.5 mb-0">
+						<label class="text-base text-ink-gray-5 w-full mb-0" for="login_with_email_link_email">{{ _("Email") }}</label>
+						<div class="email-field">
+							<input type="email" id="login_with_email_link_email" class="form-control"
+								placeholder="{{ _('jane@example.com') }}" required autofocus autocomplete="username">
+						</div>
+						<p class="field-error text-base text-ink-red-8 mb-0"></p>
+					</div>
+				</div>
+				<div class="page-card-actions flex flex-col gap-3">
+					<p class="resend-link hidden flex items-center gap-2 w-full text-base text-ink-gray-6 mb-0">
+						{{ _("Didn't receive the link?") }} <a href="#" class="btn-resend-link text-base-semibold text-ink-gray-6">{{ _("Resend") }}</a>
+					</p>
+					<button class="es-button w-full btn-login-with-email-link" data-variant="solid"
+						type="submit">{{ _("Send login link") }}</button>
+					<a href="#login" class="es-button w-full btn-login-option">
+						{{ _("Login with password") }}</a>
+				</div>
+			</form>
+			{%- if not disable_signup -%}
+			<div class="text-center sign-up-message text-p-sm text-ink-gray-6 mt-auto mb-0">
+				{{ _("Don't have an account?") }}
+				<a href="#signup" class="text-p-sm-semibold text-ink-gray-6">{{ _("Sign up") }}</a>
+			</div>
+			{%- endif -%}
+		</div>
+	</section>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>{% include "templates/includes/login/login.js" %}</script>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

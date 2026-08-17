@@ -1,0 +1,158 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:dock_code",
+ "creation": "2026-08-17 21:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "dock_code",
+  "dock_name",
+  "dock_type",
+  "column_break_main",
+  "status",
+  "sort_order",
+  "current_visit",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "dock_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Dock Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "dock_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Dock Name",
+   "reqd": 1
+  },
+  {
+   "default": "Both",
+   "fieldname": "dock_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Dock Type",
+   "options": "Loading\nUnloading\nBoth",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Available",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Available\nOccupied\nMaintenance",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "label": "Sort Order"
+  },
+  {
+   "fieldname": "current_visit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Current Visit",
+   "options": "Yard Visit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "group": "Yard",
+   "link_doctype": "Yard Visit",
+   "link_fieldname": "dock"
+  }
+ ],
+ "modified": "2026-08-17 21:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "GateMS",
+ "name": "Dock",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate User",
+   "share": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "search_fields": "dock_name,dock_type,status",
+ "show_name_in_global_search": 1,
+ "show_title_field_in_link": 1,
+ "sort_field": "sort_order",
+ "sort_order": "ASC",
+ "states": [
+  {
+   "color": "Green",
+   "title": "Available"
+  },
+  {
+   "color": "Orange",
+   "title": "Occupied"
+  },
+  {
+   "color": "Grey",
+   "title": "Maintenance"
+  }
+ ],
+ "title_field": "dock_name",
+ "track_changes": 1
+}
