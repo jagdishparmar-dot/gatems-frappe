@@ -1,0 +1,15 @@
+.git
+.github
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.pytest_cache
+**/.ruff_cache
+node_modules
+.env
+.env.*
+!.env.example
+.vscode
+.idea
+*.md
+!README.md

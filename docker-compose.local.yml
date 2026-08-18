@@ -1,0 +1,12 @@
+# Local development override — publish port 8080 on the host.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.local.yml up -d
+
+services:
+  frontend:
+    ports:
+      - "8080:8080"
+
+  create-site:
+    environment:
+      SITE_NAME: ${SITE_NAME:-gatems.localhost}
+      DEVELOPER_MODE: ${DEVELOPER_MODE:-1}

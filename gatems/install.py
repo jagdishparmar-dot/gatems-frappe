@@ -215,8 +215,8 @@ def apply_branding():
 def apply_realtime_config():
 	from frappe.installer import update_site_config
 
-	update_site_config("socketio_port", 9001)
-	frappe.conf.socketio_port = 9001
+	update_site_config("socketio_port", 9000)
+	frappe.conf.socketio_port = 9000
 
 
 def create_roles():

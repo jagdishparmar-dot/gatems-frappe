@@ -1,49 +1,149 @@
 name: gatems
 
+x-gatems-image: &gatems-image
+  build: .
+  image: gatems-frappe:${GATEMS_IMAGE_TAG:-local}
+  pull_policy: build
+
+x-gatems-common: &gatems-common
+  <<: *gatems-image
+  restart: unless-stopped
+  volumes:
+    - sites:/home/frappe/frappe-bench/sites
+    - logs:/home/frappe/frappe-bench/logs
+
 services:
   mariadb:
     image: mariadb:10.8
-    container_name: gatems-mariadb
+    restart: unless-stopped
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
       - --skip-character-set-client-handshake
       - --skip-innodb-read-only-compressed
     environment:
-      MYSQL_ROOT_PASSWORD: "123"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-${SERVICE_PASSWORD_MYSQLROOT:-change-me}}
     volumes:
-      - gatems-mariadb-data:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p123"]
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD || exit 1",
+        ]
       interval: 5s
       timeout: 5s
       retries: 30
       start_period: 20s
 
   redis:
-    image: redis:alpine
-    container_name: gatems-redis
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
-  frappe:
-    image: frappe/bench:latest
-    container_name: gatems-frappe
-    command: bash /workspace/gatems/init.sh
+  configurator:
+    <<: *gatems-common
+    restart: "no"
+    entrypoint: ["/bin/bash", "/opt/configure.sh"]
     environment:
-      SHELL: /bin/bash
-      SITE: gatems.localhost
-      ADMIN_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: "123"
-    working_dir: /home/frappe
-    volumes:
-      - .:/workspace/gatems
-    ports:
-      - "8080:8000"
-      - "9001:9000"
+      DB_HOST: mariadb
+      DB_PORT: "3306"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      SOCKETIO_PORT: "9000"
     depends_on:
       mariadb:
         condition: service_healthy
       redis:
+        condition: service_healthy
+
+  create-site:
+    <<: *gatems-common
+    restart: "no"
+    entrypoint: ["/bin/bash", "/opt/create-site.sh"]
+    environment:
+      SITE_NAME: ${SITE_NAME:-gatems.localhost}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-${SERVICE_PASSWORD_ADMIN:-admin}}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-${SERVICE_PASSWORD_MYSQLROOT:-change-me}}
+      DEVELOPER_MODE: ${DEVELOPER_MODE:-0}
+      SOCKETIO_PORT: "9000"
+      SERVICE_FQDN_FRONTEND: ${SERVICE_FQDN_FRONTEND:-}
+      SERVICE_URL_FRONTEND: ${SERVICE_URL_FRONTEND:-}
+    depends_on:
+      configurator:
+        condition: service_completed_successfully
+
+  backend:
+    <<: *gatems-common
+    command: ["bench", "serve", "--host", "0.0.0.0", "--port", "8000"]
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/method/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  websocket:
+    <<: *gatems-common
+    command: ["node", "/home/frappe/frappe-bench/apps/frappe/socketio.js"]
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
+
+  scheduler:
+    <<: *gatems-common
+    command: ["bench", "schedule"]
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
+
+  worker:
+    <<: *gatems-common
+    command: ["bench", "worker", "--queue", "short,default,long"]
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
+
+  frontend:
+    <<: *gatems-image
+    user: root
+    restart: unless-stopped
+    command: ["/usr/local/bin/nginx-entrypoint.sh"]
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+      - logs:/home/frappe/frappe-bench/logs
+    environment:
+      - SERVICE_FQDN_FRONTEND_8080
+      - BACKEND=backend:8000
+      - SOCKETIO=websocket:9000
+      - FRAPPE_SITE_NAME_HEADER=${FRAPPE_SITE_NAME_HEADER:-$$host}
+      - UPSTREAM_REAL_IP_ADDRESS=${UPSTREAM_REAL_IP_ADDRESS:-127.0.0.1}
+      - UPSTREAM_REAL_IP_HEADER=X-Forwarded-For
+      - UPSTREAM_REAL_IP_RECURSIVE=off
+      - PROXY_READ_TIMEOUT=120
+      - CLIENT_MAX_BODY_SIZE=50m
+    expose:
+      - "8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+      websocket:
         condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/api/method/ping"]
+      interval: 15s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
 
 volumes:
-  gatems-mariadb-data:
+  mariadb-data:
+  sites:
+  logs:

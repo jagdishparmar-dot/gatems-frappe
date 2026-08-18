@@ -1,4 +1,6 @@
 #!/bin/bash
+# Legacy single-container dev bootstrap (optional).
+# Prefer: docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 set -eo pipefail
 
 if [ -n "${NODE_VERSION_DEVELOP:-}" ] && [ -n "${NVM_DIR:-}" ]; then
@@ -39,7 +41,7 @@ PY
 }
 
 link_gatems() {
-	ln -sfn "${APP_SRC}" "${BENCH_DIR}/apps/gatems"
+	ln -sfn "${APP_SRC}/gatems" "${BENCH_DIR}/apps/gatems"
 	mkdir -p "${BENCH_DIR}/sites"
 	if [ -f "${BENCH_DIR}/sites/apps.txt" ]; then
 		[ -z "$(tail -c1 "${BENCH_DIR}/sites/apps.txt")" ] || echo >> "${BENCH_DIR}/sites/apps.txt"
@@ -97,7 +99,7 @@ if [ ! -d "${BENCH_DIR}/apps/frappe" ]; then
 	link_gatems
 	bench --site "${SITE}" install-app gatems
 	bench --site "${SITE}" set-config developer_mode 1
-	bench --site "${SITE}" set-config socketio_port 9001
+	bench --site "${SITE}" set-config socketio_port 9000
 	bench --site "${SITE}" enable-scheduler
 	bench --site "${SITE}" clear-cache
 	bench use "${SITE}"
@@ -116,7 +118,7 @@ else
 	link_gatems
 	bench --site "${SITE}" install-app gatems || true
 	bench --site "${SITE}" set-config developer_mode 1 || true
-	bench --site "${SITE}" set-config socketio_port 9001 || true
+	bench --site "${SITE}" set-config socketio_port 9000 || true
 	bench use "${SITE}" || true
 fi
 
