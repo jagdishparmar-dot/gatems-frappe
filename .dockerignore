@@ -13,3 +13,4 @@ node_modules
 .idea
 *.md
 !README.md
+gatems/deployment-log.txt

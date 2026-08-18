@@ -36,14 +36,8 @@ if [[ -z "$CLIENT_MAX_BODY_SIZE" ]]; then
 	export CLIENT_MAX_BODY_SIZE=50m
 fi
 
-envsubst '${BACKEND}
- ${SOCKETIO}
- ${UPSTREAM_REAL_IP_ADDRESS}
- ${UPSTREAM_REAL_IP_HEADER}
- ${UPSTREAM_REAL_IP_RECURSIVE}
- ${FRAPPE_SITE_NAME_HEADER}
- ${PROXY_READ_TIMEOUT}
- ${CLIENT_MAX_BODY_SIZE}' \
-	/etc/nginx/conf.d/frappe.conf
+envsubst '${BACKEND} ${SOCKETIO} ${UPSTREAM_REAL_IP_ADDRESS} ${UPSTREAM_REAL_IP_HEADER} ${UPSTREAM_REAL_IP_RECURSIVE} ${FRAPPE_SITE_NAME_HEADER} ${PROXY_READ_TIMEOUT} ${CLIENT_MAX_BODY_SIZE}' \
+	< /etc/nginx/templates/frappe.conf.template \
+	> /etc/nginx/conf.d/default.conf
 
 nginx -g 'daemon off;'
